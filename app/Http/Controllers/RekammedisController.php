@@ -6,40 +6,57 @@ use Illuminate\Http\Request;
 use App\Models\Rekammedis;
 use App\Models\Pasien;
 use App\Models\Dokter;
+use App\Models\Penyakit;
+use App\Models\Perawat;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RekamMedisController extends Controller
 {
     public function index()
     {
-        $rekamMedis = Rekammedis::all();
-        return view('pageadmin.rekammedis.index', compact('rekamMedis'));
+        $rekam_medis = Rekammedis::with('pasien', 'dokter', 'perawat', 'penyakit')
+            ->get();
+        return view('pageadmin.rekammedis.index', compact('rekam_medis'));
     }
 
     public function tambah()
     {
         $pasiens = Pasien::all();
         $dokters = Dokter::all();
-        return view('pageadmin.rekammedis.tambah', compact('pasiens', 'dokters'));
+        $perawats = Perawat::all();
+        $penyakits = Penyakit::all();
+        return view('pageadmin.rekammedis.tambah', compact('pasiens', 'dokters', 'perawats', 'penyakits'));
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'pasien_id' => 'required|exists:pasiens,id',
-            'dokter_id' => 'required|exists:dokters,id',
-            'tanggal_kunjungan' => 'required|date',
-            'keluhan' => 'required|string',
-            'diagnosis' => 'required|string',
-            'tindakan' => 'required|string',
-            'resep' => 'required|string',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                "pasien_id" => 'required',
+                "dokter_id" => 'required',
+                "perawat_id" => 'nullable',
+                "penyakit_id" => 'required',
+                "keterangan" => 'nullable',
+            ]);
 
-        Rekammedis::create($validatedData);
+            $model = null;
+            if (!empty($request->id)) {
+                $model = Rekammedis::findOrFail($request->id);
+            } else {
+                $model = new Rekammedis();
+            }
 
-        Alert::success('Berhasil', 'Data rekam medis berhasil disimpan');
-
-        return redirect()->route('rekam_medis.index');
+            $model->fill($validatedData);
+            if ($model->save()) {
+                Alert::success('Berhasil', 'Data rekam medis berhasil disimpan');
+            } else {
+                Alert::error('Error', 'Data rekam medis gagal disimpan');
+            }
+            return redirect()->route('rekam_medis.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error', 'Data rekam medis gagal disimpan');
+            return redirect()->route('rekam_medis.create');
+        }
     }
 
     public function edit($id)

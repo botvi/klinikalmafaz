@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rekammedis', function (Blueprint $table) {
+        Schema::create('perawat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pasien_id');
-            $table->foreignId('dokter_id');
-            $table->date('tanggal_kunjungan');
-            $table->text('keluhan');
-            $table->text('diagnosis');
-            $table->text('tindakan');
-            $table->text('resep');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('no_telp');
+            $table->string('jenis_kelamin');
+            $table->string('agama');
+            $table->string('pendidikan');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rekammedis');
+        Schema::dropIfExists('perawats');
     }
 };

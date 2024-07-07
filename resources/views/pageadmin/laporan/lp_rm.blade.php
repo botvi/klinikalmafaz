@@ -1,9 +1,8 @@
 @php
     $pageHandler = [
-        'title' => 'Pencatatan Mendis Pasien',
-        'description' => 'Daftar semua pencatatan medis pasien di Klinik Al Mafaz Benai.',
+        'title' => 'Laporan Riwayat Medis',
+        'description' => 'Halaman laporan riwayat medis pasien.',
     ];
-    $tableHeader = ['pasien_id', 'dokter_id', 'perawat_id', 'penyakit_id', 'keterangan'];
 @endphp
 @extends('template-admin.layout')
 
@@ -21,23 +20,22 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li aria-current="page" class="breadcrumb-item">
+                            <li aria-current="page" class="breadcrumb-item active">
                                 {{ $pageHandler['title'] }}
                             </li>
-                            <li aria-current="page" class="breadcrumb-item active">
-                                From Entry
-                            </li>
                         </ol>
+                        <a class="btn btn-primary float-end"
+                            href="{{ route('laporan.lp_catatan_cetak', ['id' => request('id')]) }}">
+                            {{-- print --}}
+                            Cetak
+                        </a>
                     </nav>
                 </div>
             </div>
         </div>
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Daftar Riwyat Medis</h5>
-                    <a class="btn btn-primary float-end" href="{{ route('rekam_medis.create') }}">Tambah</a>
-                </div>
+
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
                         <thead>
@@ -49,7 +47,6 @@
                                 <th>Nama Penyakit</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,17 +59,6 @@
                                     <td>{{ $rekam_medi->penyakit->nama }}</td>
                                     <td>{{ $rekam_medi->keterangan }}</td>
                                     <td>{{ \Carbon\Carbon::parse($rekam_medi->created_at)->format('Y-m-d') }}</td>
-                                    <td>
-                                        <a class="btn btn-warning btn-sm"
-                                            href="{{ route('rekam_medis.edit', $rekam_medi->id) }}">Edit</a>
-                                        <form action="{{ route('rekam_medis.destroy', $rekam_medi->id) }}"
-                                            id="delete-form-{{ $rekam_medi->id }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{ $rekam_medi->id }})">Hapus</button>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -81,23 +67,4 @@
             </div>
         </section>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data ini tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            })
-        }
-    </script>
 @endsection

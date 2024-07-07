@@ -6,6 +6,11 @@ use App\Http\Controllers\{
     PasienController,
     DokterController,
     JanjitemuController,
+    LaporanController,
+    LayananController,
+    LoginController,
+    PenyakitController,
+    PerawatController,
     RekammedisController
 };
 /*
@@ -19,6 +24,13 @@ use App\Http\Controllers\{
 |
 */
 
+// login logout
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -49,3 +61,31 @@ Route::post('/janjitemu', [JanjitemuController::class, 'store'])->name('janjitem
 Route::get('/janjitemu/{id}/edit', [JanjitemuController::class, 'edit'])->name('janjitemu.edit');
 Route::put('/janjitemu/{id}', [JanjitemuController::class, 'update'])->name('janjitemu.update');
 Route::delete('/janjitemu/{id}', [JanjitemuController::class, 'destroy'])->name('janjitemu.destroy');
+
+// perawat
+Route::get('/perawat', [PerawatController::class, 'index'])->name('perawat.index');
+Route::get('/perawat/create', [PerawatController::class, 'create'])->name('perawat.create');
+Route::get('/perawat/update/{id}', [PerawatController::class, 'create'])->name('perawat.edit');
+Route::post('/perawat', [PerawatController::class, 'store'])->name('perawat.store');
+Route::delete('/perawat/{perawat}', [PerawatController::class, 'destroy'])->name('perawat.destroy');
+
+// layanan
+Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
+Route::get('/layanan/create', [LayananController::class, 'create'])->name('layanan.create');
+Route::get('/layanan/update/{id}', [LayananController::class, 'edit'])->name('layanan.edit');
+Route::post('/layanan', [LayananController::class, 'store'])->name('layanan.store');
+Route::delete('/layanan/{layanan}', [LayananController::class, 'destroy'])->name('layanan.destroy');
+
+
+// penykit
+Route::get('/penyakit', [PenyakitController::class, 'index'])->name('penyakit.index');
+Route::get('/penyakit/create', [PenyakitController::class, 'create'])->name('penyakit.create');
+Route::get('/penyakit/update/{id}', [PenyakitController::class, 'edit'])->name('penyakit.edit');
+Route::post('/penyakit', [PenyakitController::class, 'store'])->name('penyakit.store');
+Route::delete('/penyakit/{penyakit}', [PenyakitController::class, 'destroy'])->name('penyakit.destroy');
+
+// laporan
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/lp_pasien_cetak', [LaporanController::class, 'cetak_pasien'])->name('laporan.lp_pasien_cetak');
+Route::get('/lp_catatan/{id}', [LaporanController::class, 'catatan'])->name('laporan.catatan');
+Route::get('/lp_catatan_cetak/{id}', [LaporanController::class, 'cetak_catatan'])->name('laporan.lp_catatan_cetak');

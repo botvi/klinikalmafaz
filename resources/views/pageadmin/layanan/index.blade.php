@@ -1,12 +1,11 @@
 @php
     $pageHandler = [
-        'title' => 'Pencatatan Mendis Pasien',
-        'description' => 'Daftar semua pencatatan medis pasien di Klinik Al Mafaz Benai.',
+        'title' => 'Data Layanan',
+        'description' => 'Daftar semua layanan di Klinik Al Mafaz Benai.',
     ];
-    $tableHeader = ['pasien_id', 'dokter_id', 'perawat_id', 'penyakit_id', 'keterangan'];
+    $tableHeader = ['nama', 'deskripsi', 'kategori'];
 @endphp
 @extends('template-admin.layout')
-
 @section('content')
     <div class="page-heading">
         <div class="page-title mb-2">
@@ -21,57 +20,42 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li aria-current="page" class="breadcrumb-item">
+                            <li aria-current="page" class="breadcrumb-item active">
                                 {{ $pageHandler['title'] }}
                             </li>
-                            <li aria-current="page" class="breadcrumb-item active">
-                                From Entry
-                            </li>
                         </ol>
+                        <a class="btn btn-primary float-end" href="{{ route('layanan.create') }}">Tambah</a>
                     </nav>
                 </div>
             </div>
         </div>
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Daftar Riwyat Medis</h5>
-                    <a class="btn btn-primary float-end" href="{{ route('rekam_medis.create') }}">Tambah</a>
-                </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama Pasien</th>
-                                <th>Nama Dokter</th>
-                                <th>Nama Perawat</th>
-                                <th>Nama Penyakit</th>
-                                <th>Keterangan</th>
-                                <th>Tanggal</th>
+                                @foreach ($tableHeader as $item)
+                                    <th>{{ ucfirst($item) }}</th>
+                                @endforeach
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rekam_medis as $rekam_medi)
+                            @foreach ($layanan as $item)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $rekam_medi->pasien->nama }}</td>
-                                    <td>{{ $rekam_medi->dokter->nama }}</td>
-                                    <td>{{ $rekam_medi->perawat->nama }}</td>
-                                    <td>{{ $rekam_medi->penyakit->nama }}</td>
-                                    <td>{{ $rekam_medi->keterangan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($rekam_medi->created_at)->format('Y-m-d') }}</td>
+                                    @foreach ($tableHeader as $header)
+                                        <td>{{ $item->$header }}</td>
+                                    @endforeach
                                     <td>
-                                        <a class="btn btn-warning btn-sm"
-                                            href="{{ route('rekam_medis.edit', $rekam_medi->id) }}">Edit</a>
-                                        <form action="{{ route('rekam_medis.destroy', $rekam_medi->id) }}"
-                                            id="delete-form-{{ $rekam_medi->id }}" method="POST" style="display: none;">
+                                        <a class="btn btn-warning" href="{{ route('layanan.edit', $item->id) }}">Edit</a>
+                                        <form action="{{ route('layanan.destroy', $item->id) }}"
+                                            id="delete-form-{{ $item->id }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{ $rekam_medi->id }})">Hapus</button>
+                                        <button class="btn btn-danger"
+                                            onclick="confirmDelete({{ $item->id }})">Hapus</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -81,6 +65,7 @@
             </div>
         </section>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         function confirmDelete(id) {

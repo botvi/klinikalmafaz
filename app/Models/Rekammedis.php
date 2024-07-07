@@ -9,13 +9,11 @@ class Rekammedis extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'pasien_id',
-        'dokter_id',
-        'tanggal_kunjungan',
-        'keluhan',
-        'diagnosis',
-        'tindakan',
-        'resep',
+        "pasien_id",
+        "dokter_id",
+        "perawat_id",
+        "penyakit_id",
+        "keterangan"
     ];
 
     public function pasien()
@@ -26,5 +24,15 @@ class Rekammedis extends Model
     public function dokter()
     {
         return $this->belongsTo(Dokter::class);
+    }
+
+    public function perawat()
+    {
+        return $this->belongsTo(Perawat::class);
+    }
+
+    public function penyakit()
+    {
+        return $this->belongsTo(Penyakit::class);
     }
 }
