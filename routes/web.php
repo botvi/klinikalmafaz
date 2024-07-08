@@ -11,7 +11,8 @@ use App\Http\Controllers\{
     LoginController,
     PenyakitController,
     PerawatController,
-    RekammedisController
+    RekammedisController,
+    WebsiteController
 };
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +26,15 @@ use App\Http\Controllers\{
 */
 
 // login logout
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [LoginController::class, 'register']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('/pasien/tambah', [PasienController::class, 'tambah'])->name('pasien.tambah');
@@ -89,3 +91,10 @@ Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index
 Route::get('/lp_pasien_cetak', [LaporanController::class, 'cetak_pasien'])->name('laporan.lp_pasien_cetak');
 Route::get('/lp_catatan/{id}', [LaporanController::class, 'catatan'])->name('laporan.catatan');
 Route::get('/lp_catatan_cetak/{id}', [LaporanController::class, 'cetak_catatan'])->name('laporan.lp_catatan_cetak');
+});
+
+
+// WEBSITE
+Route::get('/', [WebsiteController::class, 'index'])->name('web.index');
+Route::get('/about', [WebsiteController::class, 'about'])->name('web.about');
+// WEBSITE
