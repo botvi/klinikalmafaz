@@ -67,8 +67,7 @@
                                 <div class="footer-tittle">
                                     <h4>About Us</h4>
                                     <div class="footer-pera">
-                                        <p class="info1">Lorem igpsum doldfor sit amet, adipiscing elit, sed do eiusmod tempor cergelit rgh. </p>
-                                        <p class="info1">Lorem ipsum dolor sit amet, adipiscing elit.</p>
+                                        <p class="info1">Klinik Al Mafaz berdiri pada tahun 2017, yang didirikan oleh dr. Sabwan Yulio. Klinik Al Mafaz terletak di Jalan Soekarno Hatta, Kecamatan Benai Kabupaten Kuantan Singingi. Dengan berdirinya Klinik Al Mafaz Benai akan memberikan kemudahan terhadap masyarakat dalam akses terhadap pelayanan kesehatan dan medis yang ada di Kecamatan Benai. </p>
                                     </div>
                                 </div>
                             </div>
@@ -76,8 +75,8 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-number mb-50">
-                                    <h4><span>+564 </span>7885 3222</h4>
-                                    <p>youremail@gmail.com</p>
+                                    <h4><span>+628 </span>2283651914</h4>
+                                    <p>Jl. Soekarno Hatta, Benai, Kec. Benai, Kabupaten Kuantan Singingi, Riau</p>
                                 </div>
                                 <!-- Form -->
                                 <div class="footer-form">

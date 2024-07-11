@@ -36,6 +36,12 @@
                 <span>Layanan</span>
             </a>
         </li>
+        <li class="sidebar-item {{ Request::is('beritas*') ? 'active' : '' }}">
+            <a class='sidebar-link' href="/beritas">
+                <i class="bi bi-newspaper"></i>
+                <span>Berita</span>
+            </a>
+        </li>
 
         <li class="sidebar-item {{ Request::is('penyakit*') ? 'active' : '' }}">
             <a class='sidebar-link' href="/penyakit">

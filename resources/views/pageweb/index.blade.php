@@ -1,5 +1,37 @@
 @extends('template-web.layout')
+@section('style')
+    <style>
+        .single-gallery {
+    overflow: hidden;
+    border-radius: 10px; /* Membuat gambar rounded */
+}
 
+.gallery-img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* Membuat rasio aspek 4:3 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px; /* Membuat gambar rounded */
+}
+
+.section-padding30 {
+    padding: 30px 0;
+}
+
+.section-tittle {
+    margin-bottom: 30px;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+    </style>
 @section('content')
 
   <!--? slider Area Start-->
@@ -17,7 +49,7 @@
                                     <b>Melayani</b>
                                 </strong>
                             </h1>
-                            <p data-animation="fadeInLeft" data-delay="0.1s">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi uquip ex ea commodo consequat is aute irure.</p>
+                            <p data-animation="fadeInLeft" data-delay="0.1s">Selamat datang di Klinik Kami, tempat kami memberikan layanan kesehatan yang penuh kasih dengan komitmen pada keunggulan. </p>
                             {{-- <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Appointment <i class="ti-arrow-right"></i></a> --}}
                         </div>
                     </div>
@@ -33,7 +65,7 @@
         <!-- Section Tittle -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-tittle text-center mb-100">
+                <div class="section-tittle text-center">
                     <span>Layanan</span>
                     <h2>Layanan Klinik Al Mafaz</h2>
                 </div>
@@ -46,7 +78,7 @@
         @else
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="depart_ment_tab mb-30">
+                    <div class="depart_ment_tab mb-5">
                         <!-- Tabs Buttons -->
                         <ul class="nav" id="myTab" role="tablist">
                             @foreach($layanans as $index => $layanan)
@@ -96,48 +128,30 @@
             </div>
         </div>
         <div class="row">
-            <!-- Left -->
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img big-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery1.png);"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img small-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery2.png);"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img small-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery3.png);"></div>
-                        </div>
-                    </div>
+            <!-- Gallery Images -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/1.jpg);"></div>
                 </div>
             </div>
-            <!-- Right -->
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img small-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery4.png);"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img small-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery5.png);"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img big-img" style="background-image: url({{ asset('web') }}/assets/img/gallery/gallery6.png);"></div>
-                        </div>
-                    </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/2.jpg);"></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/3.jpg);"></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/4.jpg);"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Gallery Area End -->
 @endsection

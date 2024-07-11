@@ -14,13 +14,14 @@
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="/">Home</a></li>
-                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/">Beranda</a></li>
+                                    <li><a href="/about">Tentang</a></li>
+                                    <li><a href="/news">Berita</a></li>
                                 </ul>
                             </nav>
                         </div>
                         <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                            <a href="#" class="btn header-btn">+12345678</a>
+                            <a href="#" class="btn header-btn">+6282283651914</a>
                         </div>
                     </div>
                 </div>   

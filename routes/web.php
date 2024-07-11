@@ -12,7 +12,8 @@ use App\Http\Controllers\{
     PenyakitController,
     PerawatController,
     RekammedisController,
-    WebsiteController
+    WebsiteController,
+    BeritaController
 };
 /*
 |--------------------------------------------------------------------------
@@ -91,10 +92,22 @@ Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index
 Route::get('/lp_pasien_cetak', [LaporanController::class, 'cetak_pasien'])->name('laporan.lp_pasien_cetak');
 Route::get('/lp_catatan/{id}', [LaporanController::class, 'catatan'])->name('laporan.catatan');
 Route::get('/lp_catatan_cetak/{id}', [LaporanController::class, 'cetak_catatan'])->name('laporan.lp_catatan_cetak');
+
+
+// berita
+Route::get('beritas', [BeritaController::class, 'index'])->name('beritas.index');
+Route::get('beritas/create', [BeritaController::class, 'create'])->name('beritas.create');
+Route::post('beritas', [BeritaController::class, 'store'])->name('beritas.store');
+Route::get('beritas/{berita}', [BeritaController::class, 'show'])->name('beritas.show');
+Route::get('beritas/{berita}/edit', [BeritaController::class, 'edit'])->name('beritas.edit');
+Route::put('beritas/{berita}', [BeritaController::class, 'update'])->name('beritas.update');
+Route::delete('beritas/{berita}', [BeritaController::class, 'destroy'])->name('beritas.destroy');
 });
 
 
 // WEBSITE
 Route::get('/', [WebsiteController::class, 'index'])->name('web.index');
 Route::get('/about', [WebsiteController::class, 'about'])->name('web.about');
+Route::get('/news', [WebsiteController::class, 'berita'])->name('berita.index');
+Route::get('/news/{id}', [WebsiteController::class, 'showberita'])->name('berita.show');
 // WEBSITE
