@@ -24,7 +24,7 @@ class BeritaController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'konten' => 'required|string',
+            'konten' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -34,7 +34,7 @@ class BeritaController extends Controller
         $berita->konten = $request->konten;
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('berita'), $imageName);
             $berita->image = $imageName;
         }
@@ -70,7 +70,7 @@ class BeritaController extends Controller
         $berita->konten = $request->konten;
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('berita'), $imageName);
             $berita->image = $imageName;
         }
@@ -85,7 +85,7 @@ class BeritaController extends Controller
     public function destroy(Berita $berita)
     {
         if ($berita->image) {
-            unlink(public_path('berita').'/'.$berita->image);
+            unlink(public_path('berita') . '/' . $berita->image);
         }
         $berita->delete();
 

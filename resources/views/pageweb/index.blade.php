@@ -1,5 +1,5 @@
 @extends('template-web.layout')
-@section('style')
+@section('content')
     <style>
         .single-gallery {
             overflow: hidden;
@@ -34,8 +34,6 @@
             margin-bottom: 30px;
         }
     </style>
-@section('content')
-
     <!--? slider Area Start-->
     <div class="slider-area position-relative">
         <div class="slider-active">
@@ -114,31 +112,34 @@
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
                     </div>
                 </div>
         </div>
-
+        @endif
     </div>
-    <div class="row">
-        <!-- Gallery Images -->
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="single-gallery mb-30">
-                <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/1.jpg);"></div>
+    <div class="container">
+        <div class="row">
+            <!-- Gallery Images -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/1.jpg);"></div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="single-gallery mb-30">
-                <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/2.jpg);"></div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/2.jpg);"></div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="single-gallery mb-30">
-                <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/3.jpg);"></div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/3.jpg);"></div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="single-gallery mb-30">
-                <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/4.jpg);"></div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="single-gallery mb-30">
+                    <div class="gallery-img" style="background-image: url({{ asset('env') }}/galeri/4.jpg);"></div>
+                </div>
             </div>
         </div>
     </div>
