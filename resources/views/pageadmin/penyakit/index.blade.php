@@ -43,7 +43,8 @@
         <section class="section">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
+                   <div class="table-responsive">
+                   <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 @foreach ($tableHeader as $item)
@@ -56,7 +57,17 @@
                             @foreach ($penyakit as $item)
                                 <tr>
                                     @foreach ($tableHeader as $header)
-                                        <td>{{ $item->$header }}</td>
+                                    @if($header == 'gambar')
+                                    
+                                    <td>
+                                        <a href="{{asset('img-upload-penyakit/'.$item->$header)}}">
+                                        <img src="{{asset('img-upload-penyakit/'.$item->$header)}}" style="width:50px" alt="">
+                                        </a>
+                                    </td>
+                                    @else
+                                    
+                                    <td>{{ $item->$header }}</td>
+                                    @endif
                                     @endforeach
                                     <td>
                                         <a class="btn btn-warning" href="{{ route('penyakit.edit', $item->id) }}">Edit</a>
@@ -72,6 +83,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                   </div>
                 </div>
             </div>
         </section>

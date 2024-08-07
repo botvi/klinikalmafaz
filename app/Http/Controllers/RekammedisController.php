@@ -16,6 +16,7 @@ class RekamMedisController extends Controller
     {
         $rekam_medis = Rekammedis::with('pasien', 'dokter', 'perawat', 'penyakit')
             ->get();
+
         return view('pageadmin.rekammedis.index', compact('rekam_medis'));
     }
 

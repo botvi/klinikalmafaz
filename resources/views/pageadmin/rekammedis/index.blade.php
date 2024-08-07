@@ -1,6 +1,6 @@
 @php
     $pageHandler = [
-        'title' => 'Pencatatan Mendis Pasien',
+        'title' => 'Pencatatan Medis Pasien',
         'description' => 'Daftar semua pencatatan medis pasien di Klinik Al Mafaz Benai.',
     ];
     $tableHeader = ['pasien_id', 'dokter_id', 'perawat_id', 'penyakit_id', 'keterangan'];
@@ -56,10 +56,10 @@
                             @foreach ($rekam_medis as $rekam_medi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $rekam_medi->pasien->nama }}</td>
-                                    <td>{{ $rekam_medi->dokter->nama }}</td>
-                                    <td>{{ $rekam_medi->perawat->nama }}</td>
-                                    <td>{{ $rekam_medi->penyakit->nama }}</td>
+                                    <td>{{ $rekam_medi->pasien->nama ?? '' }}</td>
+                                    <td>{{ $rekam_medi->dokter->nama ?? '' }}</td>
+                                    <td>{{ $rekam_medi->perawat->nama ?? '' }}</td>
+                                    <td>{{ $rekam_medi->penyakit->nama ?? '' }}</td>
                                     <td>{{ $rekam_medi->keterangan }}</td>
                                     <td>{{ \Carbon\Carbon::parse($rekam_medi->created_at)->format('Y-m-d') }}</td>
                                     <td>

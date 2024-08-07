@@ -41,7 +41,7 @@
 
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label for="nama">Nama</label>
+                                <label for="nama">Nama Penyakit</label>
                                 <input class="form-control" id="nama" name="nama" required type="text"
                                     value="{{ old('nama', $penyakit->nama ?? '') }}">
                             </div>
