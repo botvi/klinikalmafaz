@@ -9,6 +9,7 @@ class Pasien extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'nik',
         'nama',
         'tanggal_lahir',
         'jenis_kelamin',

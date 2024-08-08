@@ -30,23 +30,20 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ Request::is('layanan*') ? 'active' : '' }}">
-            <a class='sidebar-link' href="/layanan">
-                <i class="bi bi-person-arms-up"></i>
-                <span>Layanan</span>
-            </a>
-        </li>
-        <li class="sidebar-item {{ Request::is('beritas*') ? 'active' : '' }}">
-            <a class='sidebar-link' href="/beritas">
-                <i class="bi bi-newspaper"></i>
-                <span>Berita</span>
-            </a>
-        </li>
+
+
 
         <li class="sidebar-item {{ Request::is('penyakit*') ? 'active' : '' }}">
             <a class='sidebar-link' href="/penyakit">
                 <i class="bi bi-journal-plus"></i>
                 <span>Data Penyakit</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item {{ Request::is('obats*') ? 'active' : '' }}">
+            <a class='sidebar-link' href="/obats">
+                <i class="bi bi-journal-plus"></i>
+                <span>Data Obat</span>
             </a>
         </li>
 
@@ -61,6 +58,19 @@
             <a class='sidebar-link' href="/laporan">
                 <i class="bi bi-journal-arrow-down"></i>
                 <span>Laporan</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item {{ Request::is('layanan*') ? 'active' : '' }}">
+            <a class='sidebar-link' href="/layanan">
+                <i class="fa fa-folder"></i>
+                <span>Informasi Layanan</span>
+            </a>
+        </li>
+        <li class="sidebar-item {{ Request::is('beritas*') ? 'active' : '' }}">
+            <a class='sidebar-link' href="/beritas">
+                <i class="bi bi-newspaper"></i>
+                <span>Berita</span>
             </a>
         </li>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Rekammedis;
 use App\Models\Pasien;
 use App\Models\Dokter;
+use App\Models\Obat;
 use App\Models\Penyakit;
 use App\Models\Perawat;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,7 +16,15 @@ class RekamMedisController extends Controller
     public function index()
     {
         $rekam_medis = Rekammedis::with('pasien', 'dokter', 'perawat', 'penyakit')
-            ->get();
+            ->get()
+            ->map(function ($rekam_medis) {
+                $resep = collect(json_decode($rekam_medis->resep))->map(function ($item) {
+                    $getResepById = Obat::findOrFail($item);
+                    return $getResepById->nama;
+                })->toArray();
+                $rekam_medis->resep = implode(', ', $resep);
+                return $rekam_medis;
+            });
 
         return view('pageadmin.rekammedis.index', compact('rekam_medis'));
     }
@@ -26,7 +35,8 @@ class RekamMedisController extends Controller
         $dokters = Dokter::all();
         $perawats = Perawat::all();
         $penyakits = Penyakit::all();
-        return view('pageadmin.rekammedis.tambah', compact('pasiens', 'dokters', 'perawats', 'penyakits'));
+        $obats = Obat::all();
+        return view('pageadmin.rekammedis.tambah', compact('pasiens', 'dokters', 'perawats', 'penyakits', 'obats'));
     }
 
     public function store(Request $request)
@@ -37,7 +47,6 @@ class RekamMedisController extends Controller
                 "dokter_id" => 'required',
                 "perawat_id" => 'nullable',
                 "penyakit_id" => 'required',
-                "keterangan" => 'nullable',
             ]);
 
             $model = null;
@@ -47,7 +56,11 @@ class RekamMedisController extends Controller
                 $model = new Rekammedis();
             }
 
-            $model->fill($validatedData);
+            $model->fill(collect($validatedData)->merge([
+                "tindakan" => $request->tindakan,
+                "diagnosa" => $request->diagnosa,
+                "resep" => json_encode($request->resep),
+            ])->toArray());
             if ($model->save()) {
                 Alert::success('Berhasil', 'Data rekam medis berhasil disimpan');
             } else {
@@ -55,6 +68,7 @@ class RekamMedisController extends Controller
             }
             return redirect()->route('rekam_medis.index');
         } catch (\Throwable $th) {
+            // dd($th);
             Alert::error('Error', 'Data rekam medis gagal disimpan');
             return redirect()->route('rekam_medis.create');
         }
@@ -65,27 +79,35 @@ class RekamMedisController extends Controller
         $rekamMedis = Rekammedis::findOrFail($id);
         $pasiens = Pasien::all();
         $dokters = Dokter::all();
-        return view('pageadmin.rekammedis.edit', compact('rekamMedis', 'pasiens', 'dokters'));
+        $perawats = Perawat::all();
+        $penyakits = Penyakit::all();
+        $obats = Obat::all();
+        return view('pageadmin.rekammedis.edit', compact('rekamMedis', 'pasiens', 'dokters', 'perawats', 'penyakits', 'obats'));
     }
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'pasien_id' => 'required|exists:pasiens,id',
-            'dokter_id' => 'required|exists:dokters,id',
-            'tanggal_kunjungan' => 'required|date',
-            'keluhan' => 'required|string',
-            'diagnosis' => 'required|string',
-            'tindakan' => 'required|string',
-            'resep' => 'required|string',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                "pasien_id" => 'required',
+                "dokter_id" => 'required',
+                "perawat_id" => 'nullable',
+                "penyakit_id" => 'required',
+            ]);
+            $rekamMedis = Rekammedis::findOrFail($id);
+            $rekamMedis->update(collect($validatedData)->merge([
+                "tindakan" => $request->tindakan,
+                "diagnosa" => $request->diagnosa,
+                "resep" => json_encode($request->resep),
+            ])->toArray());
 
-        $rekamMedis = Rekammedis::findOrFail($id);
-        $rekamMedis->update($validatedData);
+            Alert::success('Berhasil', 'Data rekam medis berhasil diupdate');
 
-        Alert::success('Berhasil', 'Data rekam medis berhasil diupdate');
-
-        return redirect()->route('rekam_medis.index');
+            return redirect()->route('rekam_medis.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error', 'Data rekam medis gagal diupdate');
+            // return redirect()->route('rekam_medis.edit', $id);
+        }
     }
 
     public function destroy($id)

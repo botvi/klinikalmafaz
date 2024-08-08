@@ -41,7 +41,7 @@
                         <hr>
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label for="nama">Nama</label>
+                                <label for="nama">Nama Layanan</label>
                                 <input class="form-control" id="nama" name="nama" required type="text"
                                     value="{{ old('nama', $layanan->nama ?? '') }}">
                             </div>
@@ -49,14 +49,14 @@
 
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label for="deskripsi">Deskripsi</label>
+                                <label for="deskripsi">Detail Layanan</label>
                                 <textarea class="form-control" id="deskripsi" name="deskripsi" required>{{ old('deskripsi', $layanan->deskripsi ?? '') }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group mb-3">
-                                <label for="kategori">Kategori</label>
+                                <label for="kategori">Kategori Layanan</label>
                                 <select class="form-select" id="kategori" name="kategori" required>
                                     <option value="">Pilih Kategori</option>
                                     <option {{ old('kategori', $layanan->kategori ?? '') == 'Umum' ? 'selected' : '' }}

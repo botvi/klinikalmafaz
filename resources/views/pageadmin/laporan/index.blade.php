@@ -40,7 +40,7 @@
                             <a aria-current="page" class="nav-link active" href="#">Data Pasien</a>
                         </li>
                     </ul>
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="tables">
                         <thead>
                             <tr>
                                 <th>Nama</th>

@@ -14,12 +14,15 @@
         rel="shortcut icon" type="image/png">
 
 
-
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        referrerpolicy="no-referrer" rel="stylesheet" />
+    <link href="//cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('admin') }}/assets/compiled/css/app.css" rel="stylesheet">
     <link href="{{ asset('admin') }}/assets/compiled/css/app-dark.css" rel="stylesheet">
     <link href="{{ asset('admin') }}/assets/compiled/css/iconly.css" rel="stylesheet">
     @yield('style')
-
+    @stack('style')
 </head>
 
 <body>
@@ -92,9 +95,13 @@
 
 
     <script src="{{ asset('admin') }}/assets/compiled/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
 
-
-
+    <script>
+        let table = new DataTable('#tables');
+    </script>
+    @stack('script')
     <!-- Need: Apexcharts -->
     {{-- <script src="{{ asset('admin') }}/assets/extensions/apexcharts/apexcharts.min.js"></script> --}}
     {{-- <script src="{{ asset('admin') }}/assets/static/js/pages/dashboard.js"></script> --}}

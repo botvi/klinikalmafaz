@@ -21,21 +21,27 @@ class PasienController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'telepon' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:pasiens,email',
-            'tanggal_daftar' => 'required|date',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'nik' => 'required|unique:pasiens,nik',
+                'nama' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
+                'telepon' => 'required|string|max:255',
+                'email' => 'required|string|max:255|unique:pasiens,email',
+                'tanggal_daftar' => 'required|date',
+            ]);
 
-        Pasien::create($validatedData);
+            Pasien::create($validatedData);
 
-        Alert::success('Berhasil', 'Data pasien berhasil disimpan');
+            Alert::success('Berhasil', 'Data pasien berhasil disimpan');
 
-        return redirect()->route('pasien.index');
+            return redirect()->route('pasien.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error', 'Data pasien gagal disimpan');
+            return redirect()->route('pasien.tambah');
+        }
     }
 
     public function edit($id)
@@ -46,22 +52,29 @@ class PasienController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'telepon' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:pasiens,email,' . $id,
-            'tanggal_daftar' => 'required|date',
-        ]);
 
-        $pasien = Pasien::findOrFail($id);
-        $pasien->update($validatedData);
+        try {
+            $validatedData = $request->validate([
+                'nik' => 'required|unique:pasiens,nik,' . $id,
+                'nama' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
+                'telepon' => 'required|string|max:255',
+                'email' => 'required|string|max:255|unique:pasiens,email,' . $id,
+                'tanggal_daftar' => 'required|date',
+            ]);
 
-        Alert::success('Berhasil', 'Data pasien berhasil diupdate');
+            $pasien = Pasien::findOrFail($id);
+            $pasien->update($validatedData);
 
-        return redirect()->route('pasien.index');
+            Alert::success('Berhasil', 'Data pasien berhasil diupdate');
+
+            return redirect()->route('pasien.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error', 'Data pasien gagal diupdate');
+            return redirect()->route('pasien.edit', $id);
+        }
     }
 
     public function destroy($id)

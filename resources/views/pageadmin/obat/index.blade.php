@@ -1,9 +1,9 @@
 @php
     $pageHandler = [
-        'title' => 'Data Layanan Klinik',
-        'description' => 'Daftar semua layanan di Klinik Al Mafaz Benai. untuk sistem informasi website.',
+        'title' => 'Data Obat',
+        'description' => 'Daftar semua obat yang terdaftar.',
     ];
-    $tableHeader = ['Nama Layanan', 'Detail Layanan', 'Kategori Layanan'];
+    $tableHeader = ['nama', 'kategori_obat', 'keterangan'];
 @endphp
 @extends('template-admin.layout')
 @section('content')
@@ -24,7 +24,7 @@
                                 {{ $pageHandler['title'] }}
                             </li>
                         </ol>
-                        <a class="btn btn-primary float-end" href="{{ route('layanan.create') }}">Tambah</a>
+                        <a class="btn btn-primary float-end" href="{{ route('obats.create') }}">Tambah</a>
                     </nav>
                 </div>
             </div>
@@ -32,35 +32,38 @@
         <section class="section">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
-                        <thead>
-                            <tr>
-                                @foreach ($tableHeader as $item)
-                                    <th>{{ ucfirst($item) }}</th>
-                                @endforeach
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($layanan as $item)
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="table1">
+                            <thead>
                                 <tr>
-                                    @foreach ($tableHeader as $header)
-                                        <td>{{ $item->$header }}</td>
+                                    @foreach ($tableHeader as $item)
+                                        <th>{{ ucfirst(str_replace('_', ' ', $item)) }}</th>
                                     @endforeach
-                                    <td>
-                                        <a class="btn btn-warning" href="{{ route('layanan.edit', $item->id) }}">Edit</a>
-                                        <form action="{{ route('layanan.destroy', $item->id) }}"
-                                            id="delete-form-{{ $item->id }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                        <button class="btn btn-danger"
-                                            onclick="confirmDelete({{ $item->id }})">Hapus</button>
-                                    </td>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($obats as $item)
+                                    <tr>
+                                        @foreach ($tableHeader as $header)
+                                            <td>{{ $item->$header }}</td>
+                                        @endforeach
+                                        <td>
+                                            <a class="btn btn-info" href="{{ route('obats.show', $item->id) }}">Lihat</a>
+                                            <a class="btn btn-warning" href="{{ route('obats.edit', $item->id) }}">Edit</a>
+                                            <form action="{{ route('obats.destroy', $item->id) }}"
+                                                id="delete-form-{{ $item->id }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                            <button class="btn btn-danger"
+                                                onclick="confirmDelete({{ $item->id }})">Hapus</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

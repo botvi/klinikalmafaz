@@ -39,7 +39,7 @@
                     <a class="btn btn-primary float-end" href="{{ route('rekam_medis.create') }}">Tambah</a>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="tables">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -47,7 +47,9 @@
                                 <th>Nama Dokter</th>
                                 <th>Nama Perawat</th>
                                 <th>Nama Penyakit</th>
-                                <th>Keterangan</th>
+                                <th>Tindakan</th>
+                                <th>Diagnosa</th>
+                                <th>Resep</th>
                                 <th>Tanggal</th>
                                 <th>Aksi</th>
                             </tr>
@@ -60,7 +62,9 @@
                                     <td>{{ $rekam_medi->dokter->nama ?? '' }}</td>
                                     <td>{{ $rekam_medi->perawat->nama ?? '' }}</td>
                                     <td>{{ $rekam_medi->penyakit->nama ?? '' }}</td>
-                                    <td>{{ $rekam_medi->keterangan }}</td>
+                                    <td>{{ $rekam_medi->tindakan ?? '' }}</td>
+                                    <td>{{ $rekam_medi->diagnosa ?? '' }}</td>
+                                    <td>{{ $rekam_medi->resep ?? '' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($rekam_medi->created_at)->format('Y-m-d') }}</td>
                                     <td>
                                         <a class="btn btn-warning btn-sm"

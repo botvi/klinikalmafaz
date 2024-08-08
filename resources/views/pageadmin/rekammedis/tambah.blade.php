@@ -88,14 +88,32 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group mb-3">
-                                <label for="keterangan">Keterangan</label>
-                                <textarea class="form-control" id="keterangan" name="keterangan" required>{{ old('keterangan', $penyakit->keterangan ?? '') }}</textarea>
+                                <label for="keterangan">Tindakan</label>
+                                <textarea class="form-control" id="tindakan" name="tindakan" placeholder="tindakan" required></textarea>
                             </div>
                         </div>
 
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="keterangan">Diagnosa</label>
+                                <textarea class="form-control" id="diagnosa" name="diagnosa" placeholder="diagnosa" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-3">
+                                <label for="keterangan">Resep</label>
+                                <select class="form-control js-example-basic-multiple" multiple="multiple" name="resep[]">
+                                    <option value="">--pilih resep--</option>
+                                    @foreach ($obats as $obat)
+                                        <option value="{{ $obat->id }}">{{ $obat->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
+                        {{-- resep --}}
                         <hr />
                         <div class="col-12 text-end">
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -107,3 +125,14 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('.js-example-basic-multiple').select2();
+    </script>
+@endpush
+
+@push('style')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush

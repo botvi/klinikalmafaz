@@ -13,7 +13,9 @@ class Rekammedis extends Model
         "dokter_id",
         "perawat_id",
         "penyakit_id",
-        "keterangan"
+        "tindakan",
+        "diagnosa",
+        "resep",
     ];
 
     public function pasien()

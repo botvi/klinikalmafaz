@@ -43,47 +43,48 @@
         <section class="section">
             <div class="card">
                 <div class="card-body">
-                   <div class="table-responsive">
-                   <table class="table table-striped" id="table1">
-                        <thead>
-                            <tr>
-                                @foreach ($tableHeader as $item)
-                                    <th>{{ ucfirst($item) }}</th>
-                                @endforeach
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($penyakit as $item)
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="table1">
+                            <thead>
                                 <tr>
-                                    @foreach ($tableHeader as $header)
-                                    @if($header == 'gambar')
-                                    
-                                    <td>
-                                        <a href="{{asset('img-upload-penyakit/'.$item->$header)}}">
-                                        <img src="{{asset('img-upload-penyakit/'.$item->$header)}}" style="width:50px" alt="">
-                                        </a>
-                                    </td>
-                                    @else
-                                    
-                                    <td>{{ $item->$header }}</td>
-                                    @endif
+                                    @foreach ($tableHeader as $item)
+                                        <th>{{ ucfirst($item) }}</th>
                                     @endforeach
-                                    <td>
-                                        <a class="btn btn-warning" href="{{ route('penyakit.edit', $item->id) }}">Edit</a>
-                                        <form action="{{ route('penyakit.destroy', $item->id) }}"
-                                            id="delete-form-{{ $item->id }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                        <button class="btn btn-danger"
-                                            onclick="confirmDelete({{ $item->id }})">Hapus</button>
-                                    </td>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                   </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($penyakit as $item)
+                                    <tr>
+                                        @foreach ($tableHeader as $header)
+                                            @if ($header == 'gambar')
+                                                <td>
+                                                    <a href="{{ asset('img-upload-penyakit/' . $item->$header) }}">
+                                                        <img alt=""
+                                                            src="{{ asset('img-upload-penyakit/' . $item->$header) }}"
+                                                            style="width:50px">
+                                                    </a>
+                                                </td>
+                                            @else
+                                                <td>{{ $item->$header }}</td>
+                                            @endif
+                                        @endforeach
+                                        <td>
+                                            <a class="btn btn-warning"
+                                                href="{{ route('penyakit.edit', $item->id) }}">Edit</a>
+                                            <form action="{{ route('penyakit.destroy', $item->id) }}"
+                                                id="delete-form-{{ $item->id }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                            <button class="btn btn-danger"
+                                                onclick="confirmDelete({{ $item->id }})">Hapus</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
